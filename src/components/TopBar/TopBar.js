@@ -41,11 +41,11 @@ const TopBar = ({managerDashboard,loggedInUser}) => {
   };
 
   return (
-    <div>
+    <nav>
       {showLeftSide()}
       <h1>Employee Tracker</h1>
       {showRightSide()}
-    </div>
+    </nav>
   );
 }
 
