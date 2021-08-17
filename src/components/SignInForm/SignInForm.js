@@ -1,6 +1,7 @@
 import React from 'react';
 import {useState} from 'react';
-const SignInForm = ({signup})  => {
+
+const SignInForm = ({signup, userLogInInfo})  => {
   
  
   const [signIn, setSignIn] = useState('')
@@ -11,7 +12,7 @@ const SignInForm = ({signup})  => {
     setSignIn(event.target.value)
   }
   function handleChangePassword(event){
-    console.log(password)
+    //console.log(password);
     setPassword(event.target.value)
   }
 
@@ -19,7 +20,9 @@ const SignInForm = ({signup})  => {
   const submit = (event) => {
     event.preventDefault();
     //prevents page from refreshing when submitted
-    console.log("onsubmit: ", signIn)
+    userLogInInfo(signIn, password);
+  //  console.log("onsubmit: ", signIn)
+  //  console.log("onsubmit: ", password)
   }
 
 
@@ -41,21 +44,21 @@ const SignInForm = ({signup})  => {
        </form>
       </div>
     );
+  } else { //user is logging in
+    return (
+      <div>
+         <h2>Sign In</h2>
+         <form onSubmit={submit}>
+           <label for="userid">User ID: </label>
+           <input type="text" name="userid" value={signIn} onChange={handleChangeUserid}></input>
+           <label for="pass">Password: </label>
+           <input type="password" name="password" value={password} onChange={handleChangePassword}></input>
+           <input type="submit" name="submit"></input>
+         </form>
+      </div>
+    );
   }
 
-  //user is logging in
-  return (
-    <div>
-       <h2>Sign In</h2>
-       <form onSubmit={submit}>
-         <label for="userid">User ID: </label>
-         <input type="text" name="userid" value={signIn} onChange={handleChangeUserid}></input>
-         <label for="pass">Password: </label>
-         <input type="password" name="password" value={password} onChange={handleChangePassword}></input>
-         <input type="submit" name="submit"></input>
-       </form>
-    </div>
-  );
 }
 
 export default SignInForm;

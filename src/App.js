@@ -1,6 +1,5 @@
 import './styles/App/App.css';
 import TopBar from "./components/TopBar/TopBar";
-// this is a comment
 import SignInForm from "./components/SignInForm/SignInForm";
 
 import {
@@ -14,10 +13,36 @@ import {
 } from 'react-router-dom';
 
 
+  // .then(response => response.json())
+  // .then(data => console.log(data));
+
+
+
+
 
 function App() {
   const [managerDashboard, setManagerDashboard] = useState(false);
   const [loggedInUser, setloggedInUser] = useState({});
+
+
+  function userLogInInfo(signIn, password) {
+ //   console.log("inside app: ", signIn, password);
+    async function checkUserLogIn(url = 'http://localhost/3000', 
+      data = {signIn, password}) {
+    
+      const response = await fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) 
+      });
+      return response.json();
+    }
+    
+  }
+
   return (
     <Router>
     <div className="App">
@@ -32,7 +57,7 @@ function App() {
           <SignInForm signup={true} />
         </Route>
         <Route path='/login'>
-          <SignInForm signup={false} />
+          <SignInForm signup={false} userLogInInfo={userLogInInfo}/>
         </Route>
 
         <Redirect to='/login' />
